@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerList = findViewById(R.id.left_drawer);
 
-        drawerItems = new String[] { "Bio", "Vaccination", "Anniversary" };
+        drawerItems = new String[]{"Bio", "Vaccination", "Anniversary"};
         ab = getSupportActionBar();
 
         aa = new ArrayAdapter<String>(this,
@@ -37,31 +37,28 @@ public class MainActivity extends AppCompatActivity {
         drawerList.setAdapter(aa);
 
         // Set the list's click listener
-        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int
-                    position, long arg3) {
+        drawerList.setOnItemClickListener((arg0, arg1, position, arg3) -> {
 
-                Fragment fragment = null;
-                if (position == 0)
-                    fragment = new BioFragment();
-                else if (position == 1)
-                    fragment = new VaccinationFragment();
-                else if (position == 2)
-                    fragment = new AnniversaryFragment();
-
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction trans = fm.beginTransaction();
-                trans.replace(R.id.content_frame, fragment);
-                trans.commit();
-
-                // Highlight the selected item,
-                //  update the title, and close the drawer
-                drawerList.setItemChecked(position, true);
-                currentTitle = drawerItems[position];
-                ab.setTitle(currentTitle);
-                drawerLayout.closeDrawer(drawerList);
+            Fragment fragment = null;
+            if (position == 0) {
+                fragment = new BioFragment();
+            } else if (position == 1) {
+                fragment = new VaccinationFragment();
+            } else if (position == 2) {
+                fragment = new AnniversaryFragment();
             }
+
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction trans = fm.beginTransaction();
+            trans.replace(R.id.content_frame, fragment);
+            trans.commit();
+
+            // Highlight the selected item,
+            //  update the title, and close the drawer
+            drawerList.setItemChecked(position, true);
+            currentTitle = drawerItems[position];
+            ab.setTitle(currentTitle);
+            drawerLayout.closeDrawer(drawerList);
         });
     }
 }
